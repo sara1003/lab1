@@ -1,4 +1,8 @@
-ONE never notices what has been done;
+<<<<<<< HEAD
+one never notices what has been done;
+=======
+one never notices what has been done;
+>>>>>>> C4
 one can only see what remains to be done.
 We need to be true to who we are---and remember
 what is really important to us.
