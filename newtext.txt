@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 exciting to find new life.
 =======
 exciting to find new Life.
 >>>>>>> C4
+=======
+exciting to find life.
+>>>>>>> B2
