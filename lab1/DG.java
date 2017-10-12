@@ -21,7 +21,7 @@ public class DG {
 		int w;
 	}
 	private vnode[] vlist;
-	
+
 	public DG(String[] str)
 	{
 		ArrayList<String> set=new ArrayList<String>();
@@ -68,10 +68,10 @@ public class DG {
 	    	vlist[j].first=node;
 	    	vlist[j].num++;
 	    	}
-	    	
+
 	    }
 }
-	
+
 	public int index(String st)
 	{
 		//System.out.println(vlist.length);
@@ -87,10 +87,10 @@ public class DG {
 				return -1;
 			}
 		}
-		
+
 		return -1;
 	}
-	
+
 	public String[] queryBridgeWords(String word1,String word2)
 	{
 		int m=index(word1);
@@ -105,7 +105,7 @@ public class DG {
 			System.out.println("No "+word1+" and "+word2+" in the graph!");
 		else
 		{
-			
+
 			int i=0;
 			enode e=vlist[m].first;
 			while(e!=null)
@@ -118,13 +118,13 @@ public class DG {
 							str.add(e.data);
 						    break;
 						}
-						
+
 						e2=e2.next;
 					}
-					
+
 				e=e.next;
-			}	
-			
+			}
+
 		}
 		if(str.size()==0)
 			System.out.println("No bridge word from "+word1+" to "+word2);
@@ -137,7 +137,7 @@ public class DG {
 		for(int i=0;i<str.size();i++)
 		{
 			newstr[i]=(String)sa[i];
-			
+
 		}
 		//Object [] newstr = (String[])str.toArray() ;
 	    return newstr;
@@ -166,12 +166,12 @@ public class DG {
 			n1=index(node.data);
 		}
 	}
-	
+
 	String [] generateNewText(String []inputText)
 	{
-		
+
 		ArrayList <String> newtext= new ArrayList<String>();
-		Random r=new Random(); 
+		Random r=new Random();
 		for (int i=0;i<inputText.length-1;i++)
 		{
 			newtext.add(inputText[i]);
@@ -186,7 +186,7 @@ public class DG {
 		newtext.add(inputText[inputText.length-1]);
 		String []newtxt=new String[newtext.size()];
 		Object []sa=newtext.toArray();
-		
+
 		for(int i=0;i<newtext.size();i++)
 		{
 			newtxt[i]=(String)sa[i];
@@ -194,48 +194,48 @@ public class DG {
 		return newtxt;
 	}
 
-	int [] Dijkstra(int v0, int n,int s0)  
-	{  
-		int []path; 
+	int [] Dijkstra(int v0, int n,int s0)
+	{
+		int []path;
 		path=new int [n];
 		int []visited;
-		visited=new int [n];  
-		//Node dist[maxnum];  
-		//vnode []dist; 
-		//dist=new vnode [n];  
-		Queue<vnode> q=new PriorityQueue<>();  
-	    //初始化  
+		visited=new int [n];
+		//Node dist[maxnum];
+		//vnode []dist;
+		//dist=new vnode [n];
+		Queue<vnode> q=new PriorityQueue<>();
+	    //初始化
 	    final int INF=Integer.MAX_VALUE;
-	    for(int i = 0; i < n; i++)  
-	    {  
-	        vlist[i].w = INF;  
-	        path[i] = -1;       //每个顶点都无父亲节点  
-	        visited[i] = 0;     //都未找到最短路  
-	    }  
-	    vlist[v0].w = 0;  
-	    q.add(vlist[v0]);  
-	    while(!q.isEmpty())  
-	    {  
-	        vnode cd = q.element();  
-	        q.poll();  
+	    for(int i = 0; i < n; i++)
+	    {
+	        vlist[i].w = INF;
+	        path[i] = -1;       //每个顶点都无父亲节点
+	        visited[i] = 0;     //都未找到最短路
+	    }
+	    vlist[v0].w = 0;
+	    q.add(vlist[v0]);
+	    while(!q.isEmpty())
+	    {
+	        vnode cd = q.element();
+	        q.poll();
 	        int u=index(cd.data);
-	        if(visited[u]==1)  
-	            continue;  
-	        visited[u] = 1;  
+	        if(visited[u]==1)
+	            continue;
+	        visited[u] = 1;
 	        enode p=vlist[u].first;
-	        while(p!=null)  
-	        {  
-	            int tempv = index(p.data);  
-	            int tempw = p.w;  
-	            if(visited[tempv]==0 && (vlist[tempv].w > (vlist[u].w+tempw)))  
-	            {  
-	                vlist[tempv].w = vlist[u].w+tempw;  
-	                path[tempv] = u;  
-	                q.add(vlist[tempv]);  
-	            }  
-	            p = p.next;  
-	        }  
-	    }  
+	        while(p!=null)
+	        {
+	            int tempv = index(p.data);
+	            int tempw = p.w;
+	            if(visited[tempv]==0 && (vlist[tempv].w > (vlist[u].w+tempw)))
+	            {
+	                vlist[tempv].w = vlist[u].w+tempw;
+	                path[tempv] = u;
+	                q.add(vlist[tempv]);
+	            }
+	            p = p.next;
+	        }
+	    }
 	    System.out.println("最短路径长为："+vlist[s0].w);
 	    return path;
 	}
@@ -246,7 +246,7 @@ public class DG {
 		int w1=index(word1);
 		int w2=index(word2);
 		int i=0;
-		/*	
+		/*
 		if(w1!=-1&&w2!=-1)
 		{
 			Pa=Dijkstra(w1, vlist.length,w2);
@@ -271,7 +271,7 @@ public class DG {
 					w2=Pa[w2];
 				}
 			}
-			
+
 		}
 		*/
 		if(w1==-1||w2==-1)
@@ -292,7 +292,7 @@ public class DG {
 		for(i=0;i<p.size();i++)
 		{
 			path[i]=(String)sa[i];
-			
+
 		}
 		return path;
 	}
@@ -305,12 +305,12 @@ public class DG {
 			BufferedReader br=new BufferedReader(fr);
 			String sf=null;
 			String s2="";
-	        while((sf=br.readLine())!=null){  
+	        while((sf=br.readLine())!=null){
 	            s2=s2+sf+" ";
 	        }
 	        br.close();
             fr.close();
-          
+
 			Scanner sc=new Scanner(s2);
 		    String str=sc.nextLine();
 		    str=str.toLowerCase();
@@ -329,23 +329,23 @@ public class DG {
 		    DG dg=new DG(s3);
 			/*String []s4= {"seek","to","explore","new","and","exciting"};
 			String []s5=dg.generateNewText(s4);
-			
+
 			for(int i=0;i<s5.length;i++)
 	        {
 	        	System.out.println(s5[i]);
 	        }
 			ArrayList<String> s6=dg.randWalk();
-			
+
 	        System.out.println(s6);
-	        
+
 	        String []s7=dg.calcShortestPath("to","explore");
 	        for(int i=0;i<s7.length;i++)
 	        {
 	        	System.out.println(s7[s7.length-i-1]);
 	        }*/
-	        
-	        
-	        
+
+
+
 	            String a=JOptionPane.showInputDialog("choose function(1,2,3,4,5,6):");
 	            while(a!="0")
 	            {
@@ -389,8 +389,9 @@ public class DG {
 	        	case "6":
 	        		ArrayList<String> s6=dg.randWalk();
     	            System.out.println(s6);
+    	            System.out.println("i changed the lab");
 	    	        break;
-	        		
+
 	        	default:
 	        		break;
 	        	}
