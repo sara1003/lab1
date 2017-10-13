@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 public class DG {
 
 	private class vnode{
-		String data;
+		String data;   //111111
 		enode first;
 		Integer num; //2222222222
 		int w;

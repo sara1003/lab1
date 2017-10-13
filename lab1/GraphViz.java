@@ -6,7 +6,7 @@ import java.io.IOException;
 
 class  GraphViz{
     private String runPath = "";
-    private String dotPath = "";
+    private String dotPath = ""; //1111111gai
     private String runOrder="";
     private String dotCodeFile="dotcode.txt";    //222222222222gai
     private String resultGif="dotGif";
