@@ -11,7 +11,7 @@ public class DG {
 	private class vnode{
 		String data;
 		enode first;
-		Integer num;
+		Integer num; //2222222222
 		int w;
 	}
 	private class enode{
