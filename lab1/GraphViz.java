@@ -6,7 +6,7 @@ import java.io.IOException;
 
 class  GraphViz{
     private String runPath = "";
-    private String dotPath = ""; 
+    private String dotPath = ""; //1111111gai
     private String runOrder="";
     private String dotCodeFile="dotcode.txt";
     private String resultGif="dotGif";
@@ -46,10 +46,10 @@ class  GraphViz{
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(dotcode.getBytes());
             fos.close();
-        } catch (java.io.IOException ioe) { 
+        } catch (java.io.IOException ioe) {
             ioe.printStackTrace();
         }
-     }  
+     }
 
     public GraphViz(String runPath,String dotPath) {
         this.runPath=runPath;
@@ -74,5 +74,5 @@ class  GraphViz{
 
     public void end_graph() {
         graph.append("}") ;
-    }   
-} 
+    }
+}
