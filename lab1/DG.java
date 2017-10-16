@@ -17,7 +17,7 @@ public class DG {
 	private class enode{
 		String data;
 		enode next;
-		boolean visit;
+		boolean visit;//@
 		int w;
 	}
 	private vnode[] vlist;
