@@ -1,9 +1,2 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-exciting to find new life.
-=======
-exciting to find new Life.
->>>>>>> C4
-=======
-exciting to find life.
->>>>>>> B2
+In the big time, servitization one of the important trends-of the IT world.
+i am a student
