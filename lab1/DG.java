@@ -1,6 +1,4 @@
-import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.util.*;
 
@@ -36,7 +34,6 @@ public class DG {
 		vlist=new vnode[set.size()];
 	    for(int i=0;i<set.size();i++)
 	    {
-	    	//System.out.println(set[i]);
 	    	vlist[i]=new vnode();
 	    	vlist[i].data=(String)sa[i];
 	    	vlist[i].first=null;
@@ -74,12 +71,10 @@ public class DG {
 
 	public int index(String st)
 	{
-		//System.out.println(vlist.length);
 		for(int i=0;i<vlist.length;i++)
 		{
 			if((vlist[i].data).equals(st))
 			{
-				//System.out.println(i);
 				return i;
 			}
 			if(i==(vlist.length-1))
@@ -95,7 +90,6 @@ public class DG {
 	{
 		int m=index(word1);
 		int n=index(word2);
-		//System.out.println(m);
 		ArrayList<String> str=new ArrayList<String>();
 		if((m==-1)&&(n!=-1))
 			System.out.println("No "+word1+" in the graph!");
@@ -106,7 +100,6 @@ public class DG {
 		else
 		{
 
-			int i=0;
 			enode e=vlist[m].first;
 			while(e!=null)
 			{
@@ -139,7 +132,6 @@ public class DG {
 			newstr[i]=(String)sa[i];
 
 		}
-		//Object [] newstr = (String[])str.toArray() ;
 	    return newstr;
 	}
 
@@ -200,9 +192,6 @@ public class DG {
 		path=new int [n];
 		int []visited;
 		visited=new int [n];
-		//Node dist[maxnum];
-		//vnode []dist;
-		//dist=new vnode [n];
 		Queue<vnode> q=new PriorityQueue<>();
 	    //初始化
 	    final int INF=Integer.MAX_VALUE;
@@ -246,34 +235,6 @@ public class DG {
 		int w1=index(word1);
 		int w2=index(word2);
 		int i=0;
-		/*
-		if(w1!=-1&&w2!=-1)
-		{
-			Pa=Dijkstra(w1, vlist.length,w2);
-			while(w2!=-1)
-			{
-				p.add(vlist[w2].data);
-				w2=Pa[w2];
-			}
-		}
-		else if(w1!=-1&&word2.length()==0)
-		{
-			for(i=0;i<vlist.length;i++)
-			{
-				if(i==w1)
-					continue;
-				System.out.print(vlist[w1].data+"到"+vlist[i].data);
-				w2=i;
-				Pa=Dijkstra(w1, vlist.length,w2);
-				while(w2!=-1)
-				{
-					p.add(vlist[w2].data);
-					w2=Pa[w2];
-				}
-			}
-
-		}
-		*/
 		if(w1==-1||w2==-1)
 		{
 			System.out.println("单词不存在");
@@ -313,6 +274,7 @@ public class DG {
 
 			Scanner sc=new Scanner(s2);
 		    String str=sc.nextLine();
+		    sc.close();
 		    str=str.toLowerCase();
 		    str=str.replaceAll("[^a-z]", " ");
 		    str=str.replaceAll("\\s{1,}", " ");
@@ -327,48 +289,15 @@ public class DG {
 	public static void main(String[] args) {
 		   String s3[]=readfromfile("D:\\lab1\\java.txt");
 		    DG dg=new DG(s3);
-			/*String []s4= {"seek","to","explore","new","and","exciting"};
-			String []s5=dg.generateNewText(s4);
-
-			for(int i=0;i<s5.length;i++)
-	        {
-	        	System.out.println(s5[i]);
-	        }
-			ArrayList<String> s6=dg.randWalk();
-
-	        System.out.println(s6);
-
-	        String []s7=dg.calcShortestPath("to","explore");
-	        for(int i=0;i<s7.length;i++)
-	        {
-	        	System.out.println(s7[s7.length-i-1]);
-	        }*/
-
-
-
-	            String a=JOptionPane.showInputDialog("choose function(1,2,3,4,5,6):");
+			String a=JOptionPane.showInputDialog("choose function(1,2,3,4,5,6):");
 	            while(a!="0")
 	            {
 	        	switch(a)
 	        	{
-	        	case "1":
-	        	{/*
-	        		GraphViz gViz=new GraphViz("C:\\Users\\dell\\Desktop", "D:\\Program Files\\graphviz2.38\\bin\\dot.exe");
-	    	        gViz.start_graph();
-	    	        for(int i=0;i<s3.length-1;i++)
-	    	        {
-	    	        	gViz.addln(s3[i]+"->"+s3[i+1]);
-	    	        }
-	    	        gViz.end_graph();
-	    	        gViz.run();
-	    	        break;*/
-	        	}
-	        	case "2":
-	        		break;
 	        	case "3":
 	        		String w1=JOptionPane.showInputDialog("input word1:");
 	        		String w2=JOptionPane.showInputDialog("input word2:");
-	        		String s4[]=dg.queryBridgeWords(w1,w2);
+	        		dg.queryBridgeWords(w1,w2);
 	        		break;
 	        	case "4":
 	        		String s5[]=readfromfile("F:\\lab1\\newtext.txt");
