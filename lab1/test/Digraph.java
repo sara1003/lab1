@@ -1,8 +1,10 @@
 package test;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.PriorityQueue;
@@ -28,7 +30,7 @@ public class Digraph {
    * 
    * @author jtt & gyx
    */
-  private class Vnode {
+  private static class Vnode {
     /**
      * 
      * @author jtt & gyx
@@ -62,7 +64,7 @@ public class Digraph {
    * 
    * @author jtt & gyx
    */
-  private class Enode {
+  private static class Enode {
     /**
      * 
      * @author jtt & gyx
@@ -272,7 +274,7 @@ public class Digraph {
     queue.add(vlist[sourceVertex]);
     while (!queue.isEmpty()) {
       final Vnode vertexNode  =  queue.element();
-      queue.poll();
+      queue.remove();
       final int verLoc = index(vertexNode.data);
       if (isVisit[verLoc] == 1) {
         continue;
@@ -327,18 +329,38 @@ public class Digraph {
    * @throws IOException 
    */
   public static String[] readfromfile(final String filepath) throws IOException {
-    String[] wordsList = {};
-    final FileReader fReader = new FileReader(filepath);
-    final BufferedReader bufReader = new BufferedReader(fReader);
-    final StringBuilder str0 = new StringBuilder();
-    final String textLine = bufReader.readLine();
-    while (textLine!= null) {
-      str0.append(textLine);
-      str0.append(String.valueOf(' '));
+    String[] wordsList;
+    InputStreamReader bufReader = null;
+    try {
+        bufReader = new InputStreamReader(new FileInputStream(filepath),"UTF-8");
+    } catch (UnsupportedEncodingException | FileNotFoundException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
     }
-    bufReader.close();
-    fReader.close();
-
+    final StringBuilder str0 = new StringBuilder();
+    int tempChar = -1;
+    try {
+        if (bufReader != null) {
+            while ((tempChar = bufReader.read()) != -1) {
+                str0.append((char) tempChar);
+                if ((char) tempChar == '\n'){
+                    str0.append(String.valueOf(' '));
+                }
+                
+              }
+        }
+        
+    } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    } finally {
+        if (bufReader != null) {
+            bufReader.close();
+        }
+    }
+    
+    
+    
     final Scanner scan = new Scanner(str0.toString());
     String str = scan.nextLine();
     scan.close();
@@ -355,7 +377,7 @@ public class Digraph {
    * @throws IOException 
    */
   public static void main(final String[] args) throws IOException {
-    final String[] text = readfromfile("D:\\lab1\\java.txt");
+    final String[] text = readfromfile("D:\\java.txt");
     if (text.length == 0) {
       return;
     }
