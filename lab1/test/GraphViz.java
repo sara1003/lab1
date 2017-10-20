@@ -3,76 +3,153 @@ package test;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.logging.Logger;
 
+/**
+ * 
+ * @author jtt & gyx
+ */
 class GraphViz {
-  private String runPath = "";
-  private String dotPath = "";
-  private String runOrder = "";
-  private String dotCodeFile = "dotcode.txt";
-  private String resultGif = "dotGif";
-  private StringBuilder graph = new StringBuilder();
+  /**
+   * 
+   * @author jtt & gyx
+   */
+  private transient String runPath = "";
+  /**
+   * 
+   * @author jtt & gyx
+   */
+  private transient String dotPath = "";
+  /**
+   * 
+   * @author jtt & gyx
+   */
+  private transient String runOrder = "";
+  /**
+   * 
+   * @author jtt & gyx
+   */
+  private final static transient String DOTCODEFILE = "dotcode.txt";
+  /**
+   * 
+   * @author jtt & gyx
+   */
+  private final static transient String RESULTGIF = "dotGif";
+  /**
+   * 
+   * @author jtt & gyx
+   */
+  private final transient StringBuilder graph = new StringBuilder(20);
+  
+  /**
+   * 
+   * @author jtt & gyx
+   */
+  private final transient Runtime runtime = Runtime.getRuntime();
 
-  Runtime runtime = Runtime.getRuntime();
+  /**
+   * 
+   * @author jtt & gyx
+   */
+  private final static Logger LOG = Logger.getLogger("LAB1"); 
 
+  /**
+   * 
+   * @author jtt & gyx
+   */
   public void run() {
-    File file = new File(runPath);
+    final File file = new File(runPath);
     file.mkdirs();
     writeGraphToFile(graph.toString(), runPath);
     creatOrder();
     try {
       runtime.exec(runOrder);
     } catch (IOException e) {
-      e.printStackTrace();
+      LOG.fine(e.toString());
     }
   }
+
+  /**
+   * 
+   * @author jtt & gyx
+   */
 
   public void creatOrder() {
     runOrder += dotPath + " ";
     runOrder += runPath;
-    runOrder += "\\" + dotCodeFile + " ";
+    runOrder += "\\" + DOTCODEFILE + " ";
     runOrder += "-T gif ";
     runOrder += "-o ";
     runOrder += runPath;
-    runOrder += "\\" + resultGif + ".gif";
-    System.out.println(runOrder);
+    runOrder += "\\" + RESULTGIF + ".gif";
   }
 
-  public void writeGraphToFile(String dotcode, String filename) {
+  /**
+   * 
+   * @author jtt & gyx
+   */
+
+  public final void writeGraphToFile(final String dotcode, final String filename) {
     try {
-      File file = new File(filename + "\\" + dotCodeFile);
+      final File file = new File(filename + "\\" + DOTCODEFILE);
       if (!file.exists()) {
         file.createNewFile();
       }
-      FileOutputStream fos = new FileOutputStream(file);
+      final FileOutputStream fos = new FileOutputStream(file);
       fos.write(dotcode.getBytes());
       fos.close();
-    } catch (java.io.IOException ioe) {
-      ioe.printStackTrace();
+    } catch (IOException ioe) {
+      LOG.fine(ioe.toString());
     }
   }
 
-  public GraphViz(String runPath, String dotPath) {
+  /**
+   * 
+   * @author jtt & gyx
+   */
+  public GraphViz(final String runPath, final String dotPath) {
     this.runPath = runPath;
     this.dotPath = dotPath;
   }
 
-  public void add(String line) {
-    graph.append("\t" + line);
+  /**
+   * 
+   * @author jtt & gyx
+   */
+  public final void add(final String line) {
+    graph.append(String.valueOf('\t'));
+    graph.append(line);
   }
 
-  public void addln(String line) {
+  /**
+   * 
+   * @author jtt & gyx
+   */
+  public void addln(final String line) {
     graph.append("\t" + line + "\n");
   }
 
+  /**
+   * 
+   * @author jtt & gyx
+   */
   public void addln() {
     graph.append('\n');
   }
 
-  public void start_graph() {
+  /**
+   * 
+   * @author jtt & gyx
+   */
+  public void startGraph() {
     graph.append("digraph G {\n");
   }
 
-  public void end_graph() {
-    graph.append("}");
+  /**
+   * 
+   * @author jtt & gyx
+   */
+  public void endGraph() {
+    graph.append(String.valueOf('}'));
   }
-} 
+}
