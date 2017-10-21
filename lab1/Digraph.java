@@ -1,3 +1,5 @@
+package test;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,12 +19,6 @@ import javax.swing.JOptionPane;
  * @author jtt & gyx
  */
 public class Digraph {
-  
-  /**
-   * 
-   * @author jtt & gyx
-   */
-  final private transient Vnode[] vlist;
 
   /**
    * 
@@ -94,6 +90,12 @@ public class Digraph {
     
   }
 
+  /**
+   * 
+   * @author jtt & gyx
+   */
+  final private transient Vnode[] vlist;
+  
   /**  constructor
    * 
    * @param str.
@@ -134,6 +136,25 @@ public class Digraph {
         }
       }
     }
+  }
+  
+  /**
+   * 
+   * @author jtt & gyx
+   */
+  public void show() {
+    GraphViz gViz=new GraphViz("D:\\temp", "D:\\download\\graphviz-2.38\\release\\bin\\dot.exe");
+    gViz.startGraph();
+    for(int i = 0; i<vlist.length; i++) {
+      String vert = vlist[i].data;
+      Enode next = vlist[i].first;
+      while(next!=null){
+        gViz.addln(vert+"->"+next.data+" [ label = \""+next.weight+" \"];");
+        next = next.next;
+      }
+    }
+    gViz.endGraph();
+    gViz.run();
   }
   
   /** find the index of the words in vertex list.
@@ -189,11 +210,7 @@ public class Digraph {
     } else {
       System.out.println("The bridge words from " + word1 + " to " + word2 + " is " + str);
     }
-    String []newst = new String[str.size()];
-    final Object []schange = str.toArray();
-    for (int i = 0;i < str.size();i++) {
-      newst[i] = (String)schange[i];
-    }
+    String[] newst = (String[])str.toArray(new String[str.size()]); 
     return newst;
   }
 
@@ -242,12 +259,7 @@ public class Digraph {
       }
     }
     newtext.add(inputText[inputText.length - 1]);
-    String []newtxtText = new String[newtext.size()];
-    final Object []sChange = newtext.toArray();
-
-    for (int i = 0;i < newtext.size();i++) {
-      newtxtText[i] = (String)sChange[i];
-    }
+    String[] newtxtText = (String[])newtext.toArray(new String[newtext.size()]);
     return newtxtText;
   }
   
@@ -313,11 +325,7 @@ public class Digraph {
         word2Loc = stPath[word2Loc];
       }
     }
-    String []stPath2 = new String[pList.size()];
-    final Object []sChange = pList.toArray();
-    for (count = 0;count < pList.size();count++) {
-      stPath2[count] = (String)sChange[count];
-    }
+    String[] stPath2 = (String[])pList.toArray(new String[pList.size()]);
     return stPath2;
   }
 
@@ -340,9 +348,10 @@ public class Digraph {
     try {
         if (bufReader != null) {
             while ((tempChar = bufReader.read()) != -1) {
-                str0.append((char) tempChar);
-                if ((char) tempChar == '\n'){
+                if ((char) tempChar == '\n' || (char) tempChar == '\r'){
                     str0.append(String.valueOf(' '));
+                }else {
+                  str0.append((char) tempChar);
                 }
                 
               }
@@ -366,8 +375,6 @@ public class Digraph {
     str = str.replaceAll("[^a-z]", " ");
     str = str.replaceAll("\\s{1,}", " ");
     wordsList = str.split(" ");
-  //  if(wordsList == null)
-    //    wordsList = new String[0];
     return wordsList;
   }
 
@@ -385,13 +392,16 @@ public class Digraph {
     String aChoise = JOptionPane.showInputDialog("choose function(1,2,3,4,5,6):");
     while (aChoise!=null &&!aChoise.equals("0")) {
       switch (aChoise) {
+      case "1":
+          digrapg.show();
+          break;
         case "3":
           final String word1 = JOptionPane.showInputDialog("input word1:");
           final String word2 = JOptionPane.showInputDialog("input word2:");
           digrapg.queryBridgeWords(word1,word2);
           break;
         case "4":
-          final String[] newText = readfromfile("F:\\lab1\\newtext.txt");
+          final String[] newText = readfromfile("D:\\newtext.txt");
           for (int i = 0;i < newText.length;i++) {
             System.out.print(newText[i] + " ");
           }
